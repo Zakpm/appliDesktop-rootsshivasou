@@ -1,0 +1,44 @@
+.card {
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+    -fx-background-color: #fff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 10);
+    -fx-padding: 20px;
+    -fx-min-width: 200px; /* Largeur minimale */
+    -fx-min-height: 300px; /* Hauteur minimale */
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.card-content {
+    -fx-font-size: 14px;
+}
+
+.btn-primary {
+    -fx-background-color: #753742;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+}
+
+.card-image {
+    -fx-max-width: 100%;
+    -fx-max-height: 150px; /* Ajustez selon la hauteur souhaitée pour les images */
+    -fx-background-size: cover;
+}
+
+.root {
+    -fx-background-color: rgba(216, 189, 138, 0.2);
+}
+
+.navbar {
+    -fx-background-color: #AA5042; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+}
+
+
+
+
+
