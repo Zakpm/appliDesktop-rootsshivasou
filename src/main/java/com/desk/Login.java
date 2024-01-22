@@ -38,6 +38,7 @@ import javafx.stage.Stage;
 
 public class Login extends Application {
 
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -77,6 +78,7 @@ public class Login extends Application {
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
+        
 
         btn.setOnAction(event -> {
             try {
@@ -162,28 +164,20 @@ public class Login extends Application {
 
     private void openPostsWindow() {
         Stage postStage = new Stage();
-        postStage.setTitle("Posts");
-
-        // Créez un layout pour la fenêtre, par exemple un GridPane ou un VBox
+        postStage.setTitle("Articles");
+    
         VBox layout = new VBox(10);
         layout.setAlignment(Pos.CENTER);
-
-        // Ajoutez des composants pour afficher les posts
-        // ...
-
-        Scene scene = new Scene(layout, 1500, 800); // Ajustez la taille selon vos besoins
+    
+        Scene scene = new Scene(layout, 1500, 800);
         postStage.setScene(scene);
         postStage.show();
-
-        // css
-        scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());
-        postStage.setScene(scene);
-
-        // Appelez la méthode pour charger et afficher les posts
-        loadAndDisplayPosts(layout);
+    
+        // Au lieu de charger et d'afficher les posts ici, passez la référence de la Stage à la méthode
+        loadAndDisplayPosts(layout, postStage);
     }
 
-    private void loadAndDisplayPosts(VBox layout) {
+    private void loadAndDisplayPosts(VBox layout, Stage postStage) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:9981/posts"))
@@ -308,7 +302,7 @@ public class Login extends Application {
                         navbar.setAlignment(Pos.CENTER);
                         navbar.setPadding(new Insets(10, 0, 10, 0));
 
-                        Text navbarTitle = new Text("Rootshivasou");
+                        Text navbarTitle = new Text("Roots Shivasou");
                         navbarTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
                         navbar.getChildren().add(navbarTitle);
 
@@ -317,13 +311,16 @@ public class Login extends Application {
                         mainLayout.getStyleClass().add("root"); // Utilisez la classe CSS pour le fond
 
                         // Créer une nouvelle scène avec le mainLayout
-                        Scene scene = new Scene(mainLayout, 1500, 800);
-                        scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());
+                        Platform.runLater(() -> {
+                            Scene postScene = new Scene(new VBox(navbar, scrollPane), 1500, 800);
 
-                        Stage postStage = new Stage();
-                        postStage.setTitle("Posts");
-                        postStage.setScene(scene);
-                        postStage.show();
+                            // Charger le fichier CSS ici, juste après la création de la scène
+                            postScene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());
+
+                            // Appliquer la scène à la Stage (fenêtre)
+                            postStage.setScene(postScene);
+
+                        });
                                                                                 
                     });
                 });
